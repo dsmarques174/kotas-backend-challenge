@@ -1,0 +1,6 @@
+@PokemonChallenge_HostAddress = http://localhost:5103
+
+GET {{PokemonChallenge_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
