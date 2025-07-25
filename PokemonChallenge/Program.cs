@@ -20,6 +20,7 @@ builder.Services.AddHttpClient("PokeAPI", client =>
 });
 // Register services
 builder.Services.AddScoped<IPokemonService, PokemonService>();
+builder.Services.AddScoped<IMestreService, MestreService>();
 
 // Banco de dados
 builder.Services.AddDbContext<AppDbContext>(options =>
