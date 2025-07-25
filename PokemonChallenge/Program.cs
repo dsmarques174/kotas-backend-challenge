@@ -23,11 +23,15 @@ builder.Services.AddScoped<IPokemonService, PokemonService>();
 builder.Services.AddScoped<IMestreService, MestreService>();
 
 // Banco de dados
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseInMemoryDatabase("InMemoryPokemonChallenge")
-    );
 //builder.Services.AddDbContext<AppDbContext>(options =>
-//    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+//    options.UseInMemoryDatabase("InMemoryPokemonChallenge")
+//    );
+// Configure SQLite
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
+    );
+
+
 
 
 var app = builder.Build();
@@ -51,7 +55,12 @@ app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {
+    SQLitePCL.Batteries.Init();
+
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    //SQLitePCL..Batteries.Init();
+
     dbContext.Database.EnsureCreated();
 }
 

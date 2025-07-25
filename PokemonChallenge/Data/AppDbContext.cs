@@ -15,5 +15,10 @@ namespace PokemonChallenge.Data
         {
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite("Data Source=MyDatabase.db"); // Specify your database file path
+        }
+
     }
 }
