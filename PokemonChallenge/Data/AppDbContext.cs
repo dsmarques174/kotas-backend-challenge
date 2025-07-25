@@ -1,0 +1,18 @@
+﻿using Microsoft.EntityFrameworkCore;
+using PokemonChallenge.Models;
+using System.Collections.Generic;
+
+namespace PokemonChallenge.Data
+{
+    public class AppDbContext : DbContext
+    {
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+        public DbSet<Pokemon> Pokemons { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+        }
+
+    }
+}

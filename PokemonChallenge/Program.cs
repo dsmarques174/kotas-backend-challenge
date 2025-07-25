@@ -1,3 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using PokemonChallenge.Data;
+using PokemonChallenge.Services;
+using PokemonChallenge.Services.Interface;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,10 +10,21 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
-//builder.Services.AddEndpointsApiExplorer(); // <!-- Add this line
-//builder.Services.AddSwaggerGen(); // <!-- Add this line
+//  HttpClient PokeAPI
+builder.Services.AddHttpClient("PokeAPI", client =>
+{
+    client.BaseAddress = new Uri("https://pokeapi.co/api/v2/");
+});
+// Register services
+builder.Services.AddScoped<IPokemonService, PokemonService>();
 
+// Configure SQL
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseInMemoryDatabase("InMemoryPokemonChallenge")
+    );
 
 var app = builder.Build();
 
@@ -28,5 +44,12 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    dbContext.Database.EnsureCreated();
+}
+
 
 app.Run();
