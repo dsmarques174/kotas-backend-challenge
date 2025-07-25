@@ -21,10 +21,13 @@ builder.Services.AddHttpClient("PokeAPI", client =>
 // Register services
 builder.Services.AddScoped<IPokemonService, PokemonService>();
 
-// Configure SQL
+// Banco de dados
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseInMemoryDatabase("InMemoryPokemonChallenge")
     );
+//builder.Services.AddDbContext<AppDbContext>(options =>
+//    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 var app = builder.Build();
 

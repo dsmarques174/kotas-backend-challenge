@@ -1,8 +1,11 @@
-﻿namespace PokemonChallenge.DTOs
+﻿using System.Text.Json.Serialization;
+
+namespace PokemonChallenge.DTOs
 {
     public class PokemonDto
     {
         public int Id { get; set; }
+        [JsonPropertyName("name")]
         public string Name { get; set; }
         public int BaseExperience { get; set; }
         public int Height { get; set; }
