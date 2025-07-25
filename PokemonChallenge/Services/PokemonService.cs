@@ -19,7 +19,37 @@ namespace PokemonChallenge.Services
             _context = context;
         }
 
-        public async Task<PokemonDto> GetPokemonById(int id)
+        public async Task<List<PokemonDto>> Get()
+        {
+            var httpClient = _httpClientFactory.CreateClient("PokeAPI");
+
+            var random = new Random();
+            var pokemons = new List<PokemonDto>(10);
+            //count: 1302
+            //next: "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20"
+            //previous: null
+
+            while (pokemons.Count < 10)
+            {
+                var randomId = random.Next(1, 1302);
+
+                var response = await httpClient.GetAsync($"pokemon/{randomId}");
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                    continue;
+
+                response.EnsureSuccessStatusCode();
+
+                using var responseStream = await response.Content.ReadAsStreamAsync();
+                using var jsonDocument = await JsonDocument.ParseAsync(responseStream);
+
+                pokemons.Add(jsonDocument.Deserialize<PokemonDto>());
+            }
+
+            return pokemons;
+        }
+
+
+        public async Task<PokemonDto> GetById(int id)
         {
             var httpClient = _httpClientFactory.CreateClient("PokeAPI");
 

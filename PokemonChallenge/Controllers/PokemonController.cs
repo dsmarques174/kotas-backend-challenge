@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PokemonChallenge.DTOs;
 using PokemonChallenge.Services.Interface;
+using System;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,9 +21,18 @@ namespace PokemonChallenge.Controllers
 
         // GET: api/<PokemonController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<PokemonDto>>> Get()
         {
-            return new string[] { "value1", "value2" };
+
+            try
+            {
+                var pokemons = await _pokemonService.Get();
+                return Ok(pokemons);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // GET api/<PokemonController>/5
@@ -31,12 +41,16 @@ namespace PokemonChallenge.Controllers
         {
             try
             {
-                var pokemon = await _pokemonService.GetPokemonById(id);
+                var pokemon = await _pokemonService.GetById(id);
                 return Ok(pokemon);
             }
             catch (KeyNotFoundException ex)
             {
                 return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 

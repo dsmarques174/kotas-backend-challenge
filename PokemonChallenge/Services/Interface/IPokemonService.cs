@@ -4,6 +4,7 @@ namespace PokemonChallenge.Services.Interface
 {
     public interface IPokemonService
     {
-        Task<PokemonDto> GetPokemonById(int id);
+        Task<List<PokemonDto>> Get();
+        Task<PokemonDto> GetById(int id);
     }
 }
