@@ -6,32 +6,32 @@
 ## Estrutura base do Projeto PokemonChallenge
 
 PokemonChallenge
-│
-├── Controllers
-│   ├── PokemonController (Get por ID e Lista aleatória)
-│   ├── MestreController (Post, Get por ID e Lista)
-│   └── CapturaController (Post, Get por ID e Lista)
-│
-├── Models (Modelos de dados)
-│   ├── Pokemon (Sem uso já que é recuperado da PokeAPI)
-│   ├── Mestre
-│   └── CapturaPokemon 
-│
-├── Services (Classes de serviços dos processos especificos)
-│   ├── PokemonService
-│   ├── MestreService
-│   └── CapturaPokemonService
-│
-├── DTOs
-│   ├── PokemonDto
-│   ├── MestreDto
-│   ├── CapturaPokemonDto
-│   └── PokemonGeradoDto (Gerado com o colar especial Json as classes, apenas para agilizar)
-│
-├── Data
-│   └── AppDbContext (contexto de dados da API usando o Entity Framework Core)
-│
-└── Program (Comecei o desenvolvimento com o InMemoryDatabase pra agilizar e posteriormente configurei o SQLite, também fiz a configuração do HttpCliente para a PokeAPI e optei pelo Swagger por ter mais facilidade de utilizar e poder testar os EndPoints)
+|
+|-- Controllers
+|   |-- PokemonController (Get por ID e Lista aleatória)
+|   |-- MestreController (Post, Get por ID e Lista)
+|   |-- CapturaController (Post, Get por ID e Lista)
+|
+|-- Models (Modelos de dados)
+|   |-- Pokemon (Sem uso já que é recuperado da PokeAPI)
+│   |-- Mestre
+│   |-- CapturaPokemon 
+|
+|-- Services (Classes de serviços dos processos especificos)
+|   |-- PokemonService
+|   |-- MestreService
+|   |-- CapturaPokemonService
+|
+|-- DTOs
+|   |-- PokemonDto
+|   |-- MestreDto
+|   |-- CapturaPokemonDto
+|   |-- PokemonGeradoDto (Gerado com o colar especial Json as classes, apenas para agilizar)
+|
+|── Data
+|   |-- AppDbContext (contexto de dados da API usando o Entity Framework Core)
+|
+|-- Program (Comecei o desenvolvimento com o InMemoryDatabase pra agilizar e posteriormente configurei o SQLite, também fiz a configuração do HttpCliente para a PokeAPI e optei pelo Swagger por ter mais facilidade de utilizar e poder testar os EndPoints)
 
 
 ## Backend-end
