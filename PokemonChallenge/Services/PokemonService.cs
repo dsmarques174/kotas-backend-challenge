@@ -69,9 +69,23 @@ namespace PokemonChallenge.Services
             using var responseStream = await response.Content.ReadAsStreamAsync();
             using var jsonDocument = await JsonDocument.ParseAsync(responseStream);
 
-            return jsonDocument.Deserialize<PokemonDto>();
+            var pokemonDto = jsonDocument.Deserialize<PokemonDto>();
+
+            if (pokemonDto.Sprites != null && !string.IsNullOrEmpty(pokemonDto.Sprites.BackDefault))
+                pokemonDto.Sprites.BackDefaultBase64 = await this.GetSpriteBase64(pokemonDto.Sprites.BackDefault);
+
+            return pokemonDto;
         }
 
 
+        private async Task<string> GetSpriteBase64(string spriteUrl)
+        {
+            if (string.IsNullOrEmpty(spriteUrl))
+                return string.Empty;
+
+            using var httpClient = new HttpClient();
+            var imageBytes = await httpClient.GetByteArrayAsync(spriteUrl);
+            return Convert.ToBase64String(imageBytes);
+        }
     }
 }
