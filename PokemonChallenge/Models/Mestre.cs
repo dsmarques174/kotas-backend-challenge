@@ -1,11 +1,18 @@
-﻿namespace PokemonChallenge.Models
+﻿
+using NuGet.DependencyResolver;
+
+namespace PokemonChallenge.Models
 {
     public class Mestre
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
+
+        public required string Nome { get; set; }
+
         public DateOnly DataNascimento { get; set; }
-        public string CPF { get; set; }
+
+        public required string CPF { get; set; }
+
 
     }
 }

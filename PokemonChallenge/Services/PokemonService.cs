@@ -33,16 +33,11 @@ namespace PokemonChallenge.Services
             {
                 var randomId = random.Next(1, 1302);
 
-                var response = await httpClient.GetAsync($"pokemon/{randomId}");
-                if (response.StatusCode == HttpStatusCode.NotFound)
+                var pokemonDto = await this.GetPokeAPIById(randomId);
+                if (pokemonDto == null)
                     continue;
 
-                response.EnsureSuccessStatusCode();
-
-                using var responseStream = await response.Content.ReadAsStreamAsync();
-                using var jsonDocument = await JsonDocument.ParseAsync(responseStream);
-
-                pokemons.Add(jsonDocument.Deserialize<PokemonDto>());
+                pokemons.Add(pokemonDto);
             }
 
             return pokemons;
@@ -51,12 +46,23 @@ namespace PokemonChallenge.Services
 
         public async Task<PokemonDto> GetById(int id)
         {
+            var pokemonDto = await this.GetPokeAPIById(id);
+
+            if (pokemonDto == null)
+                throw new KeyNotFoundException("Pokemon não encontrado");
+
+
+            return pokemonDto;
+        }
+
+        public async Task<PokemonDto> GetPokeAPIById(int id)
+        {
             var httpClient = _httpClientFactory.CreateClient("PokeAPI");
 
             // Get basic Pokémon data
             var response = await httpClient.GetAsync($"pokemon/{id}");
             if (response.StatusCode == HttpStatusCode.NotFound)
-                throw new KeyNotFoundException("Pokemon não encontrado");
+                return null;
 
             response.EnsureSuccessStatusCode();
 
@@ -65,7 +71,6 @@ namespace PokemonChallenge.Services
 
             return jsonDocument.Deserialize<PokemonDto>();
         }
-
 
 
     }

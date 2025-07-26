@@ -8,11 +8,13 @@ namespace PokemonChallenge.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<Pokemon> Pokemons { get; set; }
-        public DbSet<Mestre> Mestres { get; set; }
+        public DbSet<Pokemon> Pokemon { get; set; }
+        public DbSet<Mestre> Mestre { get; set; }
+        public DbSet<CapturaPokemon> CapturaPokemon { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

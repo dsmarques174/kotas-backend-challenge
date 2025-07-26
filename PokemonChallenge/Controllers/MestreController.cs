@@ -17,6 +17,7 @@ namespace PokemonChallenge.Controllers
         {
             _mestreService = mestreService;
         }
+
         // GET: api/<MestreController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MestreDto>>> Get()

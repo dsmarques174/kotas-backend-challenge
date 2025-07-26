@@ -18,13 +18,12 @@ namespace PokemonChallenge.Services
         {
             var mestre = new Mestre
             {
-                Id = mestreDto.Id,
                 Nome = mestreDto.Nome,
                 CPF = mestreDto.CPF,
                 DataNascimento = mestreDto.DataNascimento
             };
 
-            this._context.Mestres.Add(mestre);
+            this._context.Mestre.Add(mestre);
             await _context.SaveChangesAsync();
 
             mestreDto.Id = mestre.Id;
@@ -34,7 +33,7 @@ namespace PokemonChallenge.Services
 
         public async Task<List<MestreDto>> Get()
         {
-            return await _context.Mestres
+            return await _context.Mestre
                             .Select(m => new MestreDto
                             {
                                 Id = m.Id,
@@ -48,7 +47,7 @@ namespace PokemonChallenge.Services
 
         public async Task<MestreDto> GetById(int id)
         {
-            var mestre = await this._context.Mestres.FirstOrDefaultAsync(p => p.Id == id);
+            var mestre = await this._context.Mestre.FirstOrDefaultAsync(p => p.Id == id);
             if (mestre == null)
                 throw new KeyNotFoundException("Mestre não encontrado");
 

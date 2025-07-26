@@ -21,6 +21,7 @@ builder.Services.AddHttpClient("PokeAPI", client =>
 // Register services
 builder.Services.AddScoped<IPokemonService, PokemonService>();
 builder.Services.AddScoped<IMestreService, MestreService>();
+builder.Services.AddScoped<ICapturaPokemonService, CapturaPokemonService>();
 
 // Banco de dados
 //builder.Services.AddDbContext<AppDbContext>(options =>
@@ -58,8 +59,6 @@ using (var scope = app.Services.CreateScope())
     SQLitePCL.Batteries.Init();
 
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
-    //SQLitePCL..Batteries.Init();
 
     dbContext.Database.EnsureCreated();
 }

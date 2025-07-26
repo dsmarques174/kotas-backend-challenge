@@ -1,9 +1,10 @@
-﻿namespace PokemonChallenge.Models
+﻿
+namespace PokemonChallenge.Models
 {
     public class Pokemon
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public required string Name { get; set; }
         public int BaseExperience { get; set; }
         public int Height { get; set; }
         public bool Default { get; set; }
