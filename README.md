@@ -1,8 +1,6 @@
 # Backend Challenge - Pokémons
 
 
-
-
 ## Estrutura base do Projeto PokemonChallenge
 
 PokemonChallenge
