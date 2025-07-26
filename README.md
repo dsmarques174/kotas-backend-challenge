@@ -1,50 +1,48 @@
 # Backend Challenge - Pokémons
 
-## Introdução
 
-Este é um teste para que possamos ver as suas habilidades como Backend Developer.
 
-Nesse teste você deverá desenvolver um projeto para listar pokémons, utilizando como base a API [https://pokeapi.co/](https://pokeapi.co/ "https://pokeapi.co/").
 
-[SPOILER] As instruções de entrega e apresentação do teste estão no final deste Readme (=
+## Estrutura base do Projeto PokemonChallenge
 
-### Antes de começar
- 
-- O projeto deve utilizar a Linguagem específica na avaliação. Por exempo: C#
-- Considere como deadline da avaliação a partir do início do teste. Caso tenha sido convidado a realizar o teste e não seja possível concluir dentro deste período, avise a pessoa que o convidou para receber instruções sobre o que fazer.
-- Documentar todo o processo de investigação para o desenvolvimento da atividade (README.md no seu repositório); os resultados destas tarefas são tão importantes do que o seu processo de pensamento e decisões à medida que as completa, por isso tente documentar e apresentar os seus hipóteses e decisões na medida do possível.
+PokemonChallenge
+│
+├── Controllers
+│   ├── PokemonController (Get por ID e Lista aleatória)
+│   ├── MestreController (Post, Get por ID e Lista)
+│   └── CapturaController (Post, Get por ID e Lista)
+│
+├── Models (Modelos de dados)
+│   ├── Pokemon (Sem uso já que é recuperado da PokeAPI)
+│   ├── Mestre
+│   └── CapturaPokemon 
+│
+├── Services (Classes de serviços dos processos especificos)
+│   ├── PokemonService
+│   ├── MestreService
+│   └── CapturaPokemonService
+│
+├── DTOs
+│   ├── PokemonDto
+│   ├── MestreDto
+│   ├── CapturaPokemonDto
+│   └── PokemonGeradoDto (Gerado com o colar especial Json as classes, apenas para agilizar)
+│
+├── Data
+│   └── AppDbContext (contexto de dados da API usando o Entity Framework Core)
+│
+└── Program (Comecei o desenvolvimento com o InMemoryDatabase pra agilizar e posteriormente configurei o SQLite, também fiz a configuração do HttpCliente para a PokeAPI e optei pelo Swagger por ter mais facilidade de utilizar e poder testar os EndPoints)
+
 
 ## Backend-end
 
-- Get para 10 Pokémon aleatórios
-- GetByID para 1 Pokémon específico
-- Cadastro do mestre pokemon (dados básicos como nome, idade e cpf) em SQLite
+- Get para 10 Pokémon aleatórios 
+  ### (Montei uma lista com 10 ids escolhidos com Random)
+- GetByID para 1 Pokémon específico 
+  ### (Um simples Get na PokeAPI com o id)
+- Cadastro do mestre pokemon (dados básicos como nome, idade e cpf) em SQLite 
+  ### (Feito cadastro dos dados básicos com simples validação de CPF já cadastrado)
 - Post para informar que um Pokémon foi capturado.
+  ### (Feito cadastro de captura de pokemon com validação de integridade de Mestre e Pokemon)
 - Listagem dos Pokémon já capturados.
-  
-
-### Requisitos
-
-1 - Todos os endpoints devem retornar os dados básicos do Pokémon, suas evoluções e o base64 de sprite default de cada Pokémon.
-
-## Readme do Repositório
-
-- Deve conter o título do projeto
-- Uma descrição sobre o projeto em frase
-- Deve conter uma lista com linguagem, framework e/ou tecnologias usadas
-- Como instalar e usar o projeto (instruções)
-- Não esqueça o [.gitignore](https://www.toptal.com/developers/gitignore)
-- Se está usando github pessoal, referencie que é um challenge by coodesh:  
-
->  This is a challenge by [Coodesh](https://coodesh.com/)
-
-## Finalização e Instruções para a Apresentação
-
-1. Adicione o link do repositório com a sua solução no teste
-2. Verifique se o Readme está bom e faça o commit final em seu repositório;
-3. Envie e aguarde as instruções para seguir. Caso o teste tenha apresentação de vídeo, dentro da tela de entrega será possível gravar após adicionar o link do repositório. Sucesso e boa sorte. =)
-
-
-## Suporte
-
-Para tirar dúvidas sobre o processo envie uma mensagem diretamente a um especialista no chat da plataforma. 
+  ### (Listagem de todos os capturados)
