@@ -5,6 +5,7 @@ using PokemonChallenge.Data;
 using PokemonChallenge.DTOs;
 using PokemonChallenge.Models;
 using PokemonChallenge.Services.Interface;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Metrics;
 
 namespace PokemonChallenge.Services
@@ -16,10 +17,15 @@ namespace PokemonChallenge.Services
 
         public async Task<MestreDto> Add(MestreDto mestreDto)
         {
+
+            var m = await this._context.Mestre.FirstOrDefaultAsync(m => m.CPF == mestreDto.CPF.Replace(".", "").Replace("-",""));
+            if (m != null)
+                throw new ValidationException($"Mestre já cadastrado com o CPF {mestreDto.CPF}");
+
             var mestre = new Mestre
             {
                 Nome = mestreDto.Nome,
-                CPF = mestreDto.CPF,
+                CPF = mestreDto.CPF.Replace(".", "").Replace("-", ""),
                 DataNascimento = mestreDto.DataNascimento
             };
 
